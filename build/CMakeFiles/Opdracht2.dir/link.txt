@@ -1,0 +1,1 @@
+/usr/bin/cc -rdynamic CMakeFiles/Opdracht2.dir/main.c.o -o Opdracht2 

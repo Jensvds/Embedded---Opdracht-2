@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded systems 2 -  Opdracht 2</title>
+</head>
+
+<body>
+    <h1>Embedded systems 2 - Opdracht 2</h1>
+    <form method="post" action="/cgi-bin/Opdracht2">
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname"><br>
+        <input type="Submit" value="Submit"><br>
+    </form><br>
+
+    <button onclick="reload()">Reload</button>
+    <div id="dataDiv">
+
+    </div>
+</body>
+<script>
+    window.addEventListener('load', function() {
+        console.log("Page loaded");
+        reload();
+    });
+
+    function reload() {
+        console.log("Reloading");
+        fetch("./students.json")
+        .then(response => response.json())
+        .then(data => createList(data));
+    }
+
+    function createList(data) {
+        console.log("Creating list");
+        console.log(data);
+        const mainUL = document.createElement('ul');
+        for (let i = 0; i < data.result.length; i++) {
+            const studentLI = document.createElement('li');
+            studentLI.innerHTML = data.result[i].fname + " " + data.result[i].lname;
+            mainUL.appendChild(studentLI);
+        }
+        document.getElementById('dataDiv').appendChild(mainUL);
+    }
+</script>
+</html>
